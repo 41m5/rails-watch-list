@@ -5,19 +5,20 @@ class ListsController < ApplicationController
   end
 
   def show
-    @lists = List.find(params[:id])
+    @list = List.find(params[:id])
   end
 
   def new
-    @lists = List.new
+    @list = List.new
   end
 
   def create
-    List.new(list_params)
-    # if @list.save
-    #   redirect_to lists_path
-    # else
-
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to lists_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
